@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> Flappy Bird </title>
+<style>
+h1 {
+color: yellow;
+font-size: 50px;
+}
+body {
+background-color: cyan;
+}
+.start_button {
+background-color: green;
+width: 100px;
+height: 50px;
+position: relative;
+bottom: -100px;
+right: 0px;
+}
+</style>
+
+</head>
+<body>
+<div id="content" width="500"height="500">
+<center>
+<h1> FLAPPY BIRD</h1>
+<button id="start" class="start_button">Start</button>
+</center>
+</div>
+<script>
+var start = document.getElementById("start")
+
+start.onclick = function(){
+window.location = "fb-diff.html"
+}
+
+</script>
+</body>
+</html>

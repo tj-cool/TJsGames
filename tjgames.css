@@ -1,0 +1,40 @@
+.title {
+background-color: blue;
+color: yellow;
+height:100px;
+width:700px;
+position:relative;
+left:200px;
+top:0px;
+font-size:50px;
+border-style: solid;
+border-color: black;
+border-width: 20px;
+}
+.title_text {
+position: relative;
+left: 0px;
+top:-70px;
+}
+.sidebar_button {
+background-color: yellow;
+color: blue;
+position: relative;
+}
+.sidebar {
+background-color:blue;
+color: yellow;
+position: relative;
+top:-150px;
+height:510px;
+width:100px;
+border-style: solid;
+border-color: black;
+border-width: 10px;
+}
+.centralcontent {
+
+}
+body {
+background-color: green;
+}

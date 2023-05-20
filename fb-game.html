@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Flappy Bird</title>
+<style>
+canvas {
+font-size: 50px;
+
+}
+</style>
+</head>
+<body>
+<canvas id="canvas" height="500" width="1080">
+</canvas>
+<script>
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
+class Point {
+x;
+y;
+constructor(x,y) {
+this.x = x;
+this.y = y;
+}
+}
+class Player {
+y = 0;
+width = 0;
+height = 0;
+alive = true;
+speedy = 0;
+jumptimer = 0;
+point;
+constructor(y,width,height,alive) {
+this.y = y;
+this.width = width;
+this.height = height;
+this.alive = alive;
+this.point = [[]];
+}
+tick() {
+    this.y = this.y + this.speedy;
+    if(this.jumptimer > 0){
+        this.jumptimer = this.jumptimer - 1;
+    }
+    if(this.jumptimer <= 0) {
+        this.speedy = 2;
+    }else if(this.jumptimer <= (5 * (150 / 10)) && this.jumptimer > 0) {
+        this.speedy = 0;
+    }else{
+        this.speedy = -2;
+    }
+	for(var i = 0; i <= this.width-1; i++) {
+ 	for(var j = 0; j <= this.height-1; j++){
+	this.point[i,j] = new Point((100+i),(this.y+j));
+    if(this.point[i,j].x >= pipeManager.pipe1.x && this.point[i,j].y >= 0 && this.point[i,j].y <= pipeManager.pipe1.height) {
+	        this.alive = false;
+}else if(this.point[i,j].x >= pipeManager.pipe2.x && this.point[i,j].y >= pipeManager.pipe2.y){
+            this.alive = false;
+}else if(this.point[i,j].y < 0){
+this.jumptimer = 0;
+}else if(this.point[i,j].y > 800) {
+this.alive = false;
+}else {
+
+}
+	}
+ }
+}
+}
+class Pipe {
+x;
+y;
+height;
+valid = false;
+point;
+top;
+constructor(x,y,height,valid,top){
+this.x = x;
+this.y = y;
+this.height = height;
+this.valid = valid;
+this.point = [[]];
+}
+tick() {
+this.x = this.x - 2;
+if(this.x < 0) {
+this.valid = false;
+}
+for(var i = 0; i <= 100; i++) {
+ 	for(var j = 0; j <= this.height; j++){
+	this.point[i,j] = new Point((this.x+i),(this.y+j));
+}
+}
+}
+}
+class Manager{
+pipe1;
+pipe2;
+constructor() {
+this.pipe1 = new Pipe(1000,10000,1000,false,false);
+this.pipe2 = new Pipe(69420,"eorus",489574,false,false);
+}
+tick() {
+if(!this.pipe1.valid && !this.pipe2.valid || this.pipe1 == null && this.pipe2 == null){
+score = score + 1;
+let choice = getRandomInt(2);
+if(choice == 0) {
+if(diff == "diff=easy") {
+this.pipe1 = new Pipe(980,0,100,true,true);
+this.pipe2 = new Pipe(980,300,200,true,false);
+}else if(diff == "diff=hard"){
+this.pipe1 = new Pipe(980,0,220,true,true);
+this.pipe2 = new Pipe(980,300,200,true,false);
+}
+}else if(choice == 1) {
+if(diff == "diff=easy") {
+this.pipe1 = new Pipe(980,0,200,true,true);
+this.pipe2 = new Pipe(980,400,200,true,false);
+}else if(diff == "diff=hard") {
+this.pipe1 = new Pipe(980,0,300,true,true);
+this.pipe2 = new Pipe(980,400,100,true,false);
+}
+}
+}
+}
+}
+var c;
+var cc;
+var diff;
+var p = new Player(0,0,0,true);
+var pipeManager;
+var score;
+
+function update() {
+diff = (new URL(window.location)).searchParams;
+p.tick();
+pipeManager.tick();
+pipeManager.pipe1.tick();
+pipeManager.pipe2.tick();
+}
+function render() {
+cc.clearRect(0,0,1080,500);
+if(p.alive == true){
+if(diff == "diff=easy"){
+cc.fillStyle = "rgb(0,236,255)";
+cc.fillRect(0,0,1080,500);
+}
+if(diff == "diff=hard") {
+cc.fillStyle = "#9900FF";
+cc.fillRect(0,0,1080,500);
+}
+cc.fillStyle = "#FFF000";
+cc.fillRect(100,p.y,p.width,p.height);
+cc.fillStyle = "#00FF00";
+cc.fillRect(pipeManager.pipe1.x,pipeManager.pipe1.y,100,pipeManager.pipe1.height);
+cc.fillRect(pipeManager.pipe2.x,pipeManager.pipe2.y,100,pipeManager.pipe2.height);
+cc.fillStyle = "#000000"
+var scrstr = "Score:";
+cc.font = '50px san-serif';
+cc.fillText(scrstr.concat(" ",score),400,100);
+}else {
+    cc.fillStyle = "#000000";
+    cc.fillRect(0,0,1080,500);
+	 cc.fillStyle = "#FFFFFF";
+	 cc.font = '100px san-serif';
+	 cc.fillText("YOU DIED!",300,100);
+	 setTimeout(function() {
+window.location = "fb.html";
+},1000);
+}
+}
+function init() {
+c = document.getElementById("canvas");
+cc = c.getContext("2d");
+diff = (new URL(window.location)).searchParams;
+p = new Player(0,50,50,true);
+pipeManager = new Manager();
+score = 0;
+c.onclick = function() {
+p.jumptimer = 150;
+}
+
+}
+
+init();
+setInterval(function() {
+update();
+render();
+},1);
+
+
+</script>
+</body>
+</html>

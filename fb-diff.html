@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>difficulty select</title>
+<style>
+h1{
+color: yellow;
+font-size: 50px;
+}
+body{
+background-color: cyan;
+}
+.easy_button {
+color: green;
+height: 100px;
+width: 200px;
+position: relative;
+background-color: lime;
+}
+.hard_button {
+color: #A71502;
+height: 100px;
+width: 200px;
+background-color: red;
+position: relative;
+}
+</style>
+</head>
+<body>
+<center>
+<h1>Diffuculty: </h1>
+<button id="easy" class="easy_button">EASY</button>
+<button id="hard" class="hard_button">HARD</button>
+</center>
+<script>
+var easy = document.getElementById("easy");
+var hard = document.getElementById("hard");
+easy.onclick = function() {
+window.location = "fb-game.html?diff=easy";
+}
+hard.onclick = function() {
+window.location = "fb-game.html?diff=hard";
+}
+</script>
+</body>
+</html>
