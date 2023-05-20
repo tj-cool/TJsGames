@@ -16,11 +16,24 @@ position: relative;
 left: 0px;
 top:-70px;
 }
-.sidebar_button {
+.sidebar_buttonFB {
 background-color: yellow;
 color: blue;
 position: relative;
+top: 10px;
+left: 0px;
+height:30px;
+width: 100px;
 }
+.sidebar_buttonSC {
+    background-color: yellow;
+    color: blue;
+    position: relative;
+    top: 20px;
+    left: 0px;
+    height:30px;
+    width:100px;
+    }
 .sidebar {
 background-color:blue;
 color: yellow;
